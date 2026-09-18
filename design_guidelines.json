@@ -1,0 +1,91 @@
+{
+  "project_name": "ADHD Day Planner App",
+  "theme_archetype": "1 (Organic & Earthy)",
+  "color_scheme": {
+    "mode": "light",
+    "background": "#F9F8F6",
+    "surface": "#FFFFFF",
+    "primary": "#6B8E82",
+    "primary_hover": "#5A7A6F",
+    "accent_reward": "#E07A5F",
+    "text_primary": "#2C3E38",
+    "text_secondary": "#6B7C75",
+    "border": "#E5E7EB",
+    "success": "#6B8E82",
+    "error": "#D97777"
+  },
+  "typography": {
+    "primary_font": "Manrope",
+    "secondary_font": "Figtree",
+    "hierarchy": {
+      "h1": "text-4xl tracking-tight font-bold text-[#2C3E38]",
+      "h2": "text-2xl tracking-tight font-semibold text-[#2C3E38]",
+      "h3": "text-xl font-medium text-[#2C3E38]",
+      "body": "text-base font-normal leading-relaxed text-[#2C3E38]",
+      "label": "text-sm uppercase tracking-[0.2em] font-medium text-[#6B7C75]"
+    }
+  },
+  "layout_spacing": {
+    "container": "w-full max-w-md mx-auto min-h-screen bg-[#F9F8F6] pb-24 relative overflow-hidden shadow-2xl",
+    "padding_standard": "p-6",
+    "gap_standard": "gap-6",
+    "touch_targets": "min-h-[56px] min-w-[56px] p-4"
+  },
+  "components": {
+    "TaskListItem": {
+      "style": "bg-white rounded-2xl p-4 flex items-center gap-4 shadow-[0_2px_8px_rgba(44,62,56,0.04)] border border-[#E5E7EB]/50 transition-all duration-300",
+      "active_state": "opacity-100",
+      "completed_state": "opacity-60 bg-[#F9F8F6] border-transparent",
+      "checkbox": "w-7 h-7 rounded-full border-2 border-[#6B8E82] flex items-center justify-center transition-colors shrink-0",
+      "checkbox_checked": "bg-[#E07A5F] border-[#E07A5F]"
+    },
+    "BottomNavigation": {
+      "style": "fixed bottom-0 w-full max-w-md bg-white/90 backdrop-blur-xl border-t border-[#E5E7EB] px-6 py-4 flex justify-between items-center z-50 rounded-t-3xl shadow-[0_-4px_24px_rgba(0,0,0,0.02)] left-1/2 -translate-x-1/2"
+    },
+    "GroundingOverlay": {
+      "style": "fixed inset-0 z-[100] bg-[#F9F8F6] flex flex-col items-center justify-center p-8",
+      "breathing_circle": "w-48 h-48 rounded-full bg-[#6B8E82]/20 border border-[#6B8E82]/40"
+    },
+    "JokeFactCard": {
+      "style": "bg-[#6B8E82]/10 rounded-3xl p-6 relative overflow-hidden border border-[#6B8E82]/20 shadow-sm"
+    }
+  },
+  "motion_accessibility": {
+    "animations": {
+      "task_complete": "scale 1.1 and return on checkbox to trigger dopamine response. Keep it fast and snappy.",
+      "grounding_breathing": "scale from 1 to 1.5 over 4 seconds, hold 4s, scale down over 4s (box breathing).",
+      "general": "Stagger list items on load, but strictly support prefers-reduced-motion."
+    },
+    "accessibility": "High contrast text, large tap areas, aria-labels for all interactive elements."
+  },
+  "icons": {
+    "library": "lucide-react",
+    "style": "stroke-width 2, rounded edges"
+  },
+  "media_urls": {
+    "backgrounds": [
+      {
+        "url": "https://images.unsplash.com/photo-1621519997950-158b631341b6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODF8MHwxfHNlYXJjaHwzfHxjYWxtJTIwbmF0dXJlJTIwbGFuZHNjYXBlfGVufDB8fHx8MTc4MDk4NzI3OHww&ixlib=rb-4.1.0&q=85",
+        "category": "grounding_background",
+        "description": "Calm body of water near mountain, use at 10-20% opacity as a full-screen background in the grounding/breathing section to reduce anxiety without distraction."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1483794344563-d27a8d18014e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwyfHxtaW5pbWFsaXN0JTIwcGxhbnQlMjBsZWFmfGVufDB8fHx8MTc4MDk4NzI3N3ww&ixlib=rb-4.1.0&q=85",
+        "category": "header_decoration",
+        "description": "Minimalist green plant leaf, can be used as subtle background texture on the home screen or profile."
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Build this as a mobile-first responsive web app. Ensure the main layout is constrained to max-w-md and centered on desktop to mimic an Expo React Native mobile view (as this environment heavily favors standard React/Tailwind).",
+    "Install and use 'lucide-react' for all icons.",
+    "Install and use 'framer-motion' for the task completion feedback and the grounding box-breathing animation. Keep other animations minimal to avoid distracting ADHD users.",
+    "Do NOT use 'Inter' for headings. Use 'Manrope' for headings and 'Figtree' for body text. Load these from Google Fonts.",
+    "For the daily task list, ensure checking a task requires explicit physical tap (no auto-completion or swipe-to-complete, to avoid accidental triggers and guarantee mindfulness). On check, change the checkbox to Terracotta (#E07A5F) to give a visual dopamine reward.",
+    "Keep cognitive load low: don't crowd the calendar view. Show a single week horizontal strip at the top, and below it, the clearly delineated tasks for the selected day.",
+    "The 'Grounding' view must hide all navigation and take over the full screen, providing a distraction-free environment for the 5-4-3-2-1 exercise or breathing.",
+    "Ensure all interactive elements have data-testid attributes (e.g., data-testid='task-checkbox', data-testid='add-task-btn', data-testid='grounding-start-btn').",
+    "The daily joke/fact should be presented clearly without blinking or autoplaying elements. Just static text in the designated card.",
+    "Avoid typical high-stress patterns: no red badges, no countdown timers, no overly dense data displays, no strict deadlines that induce anxiety."
+  ]
+}

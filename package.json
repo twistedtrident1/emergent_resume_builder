@@ -1,0 +1,10 @@
+{
+  "name": "grounded-daily",
+  "private": true,
+  "scripts": {
+    "install:frontend": "npm --prefix frontend install",
+    "web": "npm --prefix frontend run web",
+    "start": "npm --prefix frontend start",
+    "lint": "npm --prefix frontend run lint"
+  }
+}

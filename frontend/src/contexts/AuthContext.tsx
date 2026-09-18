@@ -14,6 +14,7 @@ export type User = {
 type AuthState = {
   loading: boolean;
   user: User | null;
+  authError: string | null;
   signIn: () => Promise<void>;
   signOut: () => Promise<void>;
 };
@@ -52,6 +53,7 @@ function parseSessionId(url: string): string | null {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
+  const [authError, setAuthError] = useState<string | null>(null);
 
   const fetchMe = useCallback(async () => {
     try {
@@ -64,6 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const processSessionId = useCallback(async (sid: string) => {
+    setAuthError(null);
     try {
       const res = await api<{ session_token: string; user: User }>(
         "/auth/session",
@@ -72,7 +75,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       await setToken(res.session_token);
       setUser(res.user);
     } catch (e) {
+      const message = e instanceof Error ? e.message : "Unable to complete Google sign-in.";
       console.warn("session exchange failed", e);
+      setAuthError(message);
     }
   }, []);
 
@@ -124,6 +129,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [processSessionId]);
 
   const signIn = useCallback(async () => {
+    setAuthError(null);
     const redirectUrl = getRedirectUrl();
     const authUrl = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
 
@@ -150,7 +156,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ loading, user, signIn, signOut }}>
+    <AuthContext.Provider value={{ loading, user, authError, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

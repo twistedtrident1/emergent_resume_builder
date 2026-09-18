@@ -31,7 +31,13 @@ npm run web
 
 Expo will print a local URL. Open it in Firefox or Chromium on Kubuntu. The frontend uses `http://127.0.0.1:8000` for the backend by default; set `EXPO_PUBLIC_BACKEND_URL` in `frontend/.env.local` if the backend is hosted elsewhere.
 
-The backend also needs `MONGO_URL` and `DB_NAME` in `backend/.env` before it can start. Use the values for your MongoDB instance.
+The backend also needs `MONGO_URL` and `DB_NAME` in `backend/.env` before it can start. Use the values for your MongoDB instance. If Google sign-in returns to the login screen, check that the backend is running and that `frontend/.env.local` points to it:
+
+```dotenv
+EXPO_PUBLIC_BACKEND_URL=http://127.0.0.1:8000
+```
+
+Restart Expo after changing `.env.local`.
 
 ## Native mobile builds
 

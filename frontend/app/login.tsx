@@ -13,7 +13,7 @@ import { useAuth } from "@/src/contexts/AuthContext";
 import { colors, radius, spacing } from "@/src/theme";
 
 export default function LoginScreen() {
-  const { signIn } = useAuth();
+  const { signIn, authError } = useAuth();
   const [busy, setBusy] = useState(false);
 
   const onPress = async () => {
@@ -59,6 +59,7 @@ export default function LoginScreen() {
           <Text style={styles.footnote}>
             We only use your name and email to personalize your planner.
           </Text>
+          {authError ? <Text style={styles.error}>{authError}</Text> : null}
         </View>
       </View>
     </SafeAreaView>
@@ -125,6 +126,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: colors.textSecondary,
     fontSize: 12,
+    marginTop: spacing.md,
+  },
+  error: {
+    color: colors.accent,
+    fontSize: 13,
+    lineHeight: 19,
+    textAlign: "center",
     marginTop: spacing.md,
   },
 });

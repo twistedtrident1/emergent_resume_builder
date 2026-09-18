@@ -39,6 +39,12 @@ EXPO_PUBLIC_BACKEND_URL=http://127.0.0.1:8000
 
 Restart Expo after changing `.env.local`.
 
+For temporary local UI work, sign-in is bypassed by default and the app opens as a demo user. Set this in `frontend/.env.local` to restore Google OAuth:
+
+```dotenv
+EXPO_PUBLIC_BYPASS_AUTH=false
+```
+
 ## Native mobile builds
 
 Android and iOS remain available through Expo's standard commands. Kubuntu does not provide an iOS simulator; Android builds require the Android SDK/emulator.

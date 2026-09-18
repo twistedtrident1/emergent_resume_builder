@@ -20,6 +20,13 @@ type AuthState = {
 };
 
 const AuthContext = createContext<AuthState | undefined>(undefined);
+const DEMO_USER: User = {
+  user_id: "demo-user",
+  email: "demo@grounded.daily",
+  name: "Demo User",
+  picture: null,
+};
+const BYPASS_AUTH = process.env.EXPO_PUBLIC_BYPASS_AUTH !== "false";
 
 function getRedirectUrl(): string {
   if (Platform.OS === "web" && typeof window !== "undefined") {
@@ -85,6 +92,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     (async () => {
       setLoading(true);
+      if (BYPASS_AUTH) {
+        setUser(DEMO_USER);
+        setLoading(false);
+        return;
+      }
       if (Platform.OS === "web" && typeof window !== "undefined") {
         const sid = parseSessionId(window.location.href);
         if (sid) {
@@ -129,6 +141,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [processSessionId]);
 
   const signIn = useCallback(async () => {
+    if (BYPASS_AUTH) {
+      setUser(DEMO_USER);
+      return;
+    }
     setAuthError(null);
     const redirectUrl = getRedirectUrl();
     const authUrl = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
